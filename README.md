@@ -1,4 +1,4 @@
-# ROT13 — Command-Line ROT13 Utility
+# ROT13: Command-Line ROT13 Utility
 
 ## Overview
 
