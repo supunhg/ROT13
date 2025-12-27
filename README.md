@@ -111,7 +111,7 @@ rot13 --version  # Version information
 
 ## Notes
 
-- No separate man page — help is built into the utility
+- No separate man page - help is built into the utility
 - Version information available via `-version` flag
 - Gracefully handles mixed input sources
 - Compatible with recovery environments and minimal shells
