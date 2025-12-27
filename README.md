@@ -99,7 +99,7 @@ rot13 "text" -o output.txt
 
 ```bash
 rot13            # Shows help page
-rot13 --version  # Version information
+rot13 --version  # Version information (-v)
 ```
 
 ## Design Philosophy
@@ -112,7 +112,7 @@ rot13 --version  # Version information
 ## Notes
 
 - No separate man page - help is built into the utility
-- Version information available via `-version` flag
+- Version information available via `--version` / `-v` flag
 - Gracefully handles mixed input sources
 - Compatible with recovery environments and minimal shells
 
