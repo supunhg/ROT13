@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# rot13 — Bash fallback
+# Author: Supun Hewagamage
+
+VERSION="1.0.0"
+AUTHOR="Supun Hewagamage"
+
+rot() {
+    tr 'A-Za-z' 'N-ZA-Mn-za-m'
+}
+
+usage() {
+    cat <<EOF
+rot13 — ROT13 encoder/decoder
+Author: Supun Hewagamage
+
+Usage:
+  rot13 STRING [STRING ...]
+  rot13 FILE [FILE ...]
+  echo STRING | rot13
+  rot13 -o output.txt INPUT...
+
+Options:
+  -o FILE   Write output to file
+  -v        Show program version
+  -h        Show this help
+EOF
+}
+
+OUT=""
+ARGS=()
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -o)
+            OUT="$2"
+            shift 2
+            ;;
+
+        -v|--version)
+            echo "rot13 $VERSION"
+            echo "Author: $AUTHOR"
+            exit 0
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+RESULT=""
+
+# stdin
+if [ ! -t 0 ]; then
+    RESULT+=$(rot)
+fi
+
+# args/files
+for i in "${ARGS[@]}"; do
+    if [ -f "$i" ]; then
+        RESULT+=$(rot < "$i")
+    else
+        RESULT+=$(printf "%s" "$i" | rot)
+    fi
+    RESULT+=$'\n'
+done
+
+if [ -z "$RESULT" ]; then
+    usage
+    exit 0
+fi
+
+if [ -n "$OUT" ]; then
+    printf "%s" "$RESULT" > "$OUT"
+else
+    printf "%s" "$RESULT"
+fi
